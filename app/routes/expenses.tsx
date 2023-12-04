@@ -1,7 +1,12 @@
+import { Outlet } from '@remix-run/react';
 import React from 'react';
 
 function ExpensesOutlet() {
-  return <div>ExpensesOutlet</div>;
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }
 
 export default ExpensesOutlet;
