@@ -1,15 +1,15 @@
-import { redirect, type ActionFunctionArgs } from '@remix-run/node';
+import { redirect, type ActionFunctionArgs, json } from '@remix-run/node';
 import prismaDb from '~/server/db.server';
 
 export async function action({ request, params }: ActionFunctionArgs) {
-  // if (request.method === 'DELETE') {
-  //   await prismaDb.task.delete({
-  //     where: {
-  //       id: params.id,
-  //     },
-  //   });
-  // }
-  // return redirect('/expenses');
+  if (request.method === 'DELETE') {
+    await prismaDb.task.delete({
+      where: {
+        id: params.id,
+      },
+    });
+  }
+  return json({ message: 'success' });
 }
 
 function SingleExpense() {

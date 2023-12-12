@@ -1,4 +1,4 @@
-import { Form, Link, useLoaderData } from '@remix-run/react';
+import { Form, Link, useFetcher, useLoaderData } from '@remix-run/react';
 import prismaDb from '~/server/db.server';
 
 export async function loader() {
@@ -7,6 +7,16 @@ export async function loader() {
 }
 
 function Expenses() {
+  const fetcher = useFetcher();
+  // const handleDelete = (id: string) => {
+  //   fetcher.submit(null, {
+  //     method: 'DELETE',
+  //     action: `/expenses/${id}`,
+  //   });
+  // };
+
+  const isSubmitting = fetcher.state !== 'idle';
+
   const task = useLoaderData<typeof loader>();
   return (
     <div className="max-w-3xl mx-auto py-3">
@@ -40,11 +50,21 @@ function Expenses() {
                   <button className="btn btn-xs btn-success text-white">
                     Edit
                   </button>
-                  <Form method='DELETE' action={`/expenses/${task.id}`}>
-                    <button className="btn btn-xs btn-error text-white">
+                  {/* <Form method='DELETE' action={`/expenses/${task.id}`}> */}
+                  {/* <button
+                    disabled={isSubmitting}
+                    onClick={() => handleDelete(task.id)}
+                    className="disabled btn btn-xs btn-error text-white"
+                  >
+                    Delete
+                  </button> */}
+                  {/* </Form> */}
+
+                  <fetcher.Form method="DELETE" action={`/expenses/${task.id}`}>
+                    <button className="disabled btn btn-xs btn-error text-white">
                       Delete
                     </button>
-                  </Form>
+                  </fetcher.Form>
                 </div>
               </div>
             );
