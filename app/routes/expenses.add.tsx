@@ -1,5 +1,5 @@
 import { json, type ActionFunctionArgs, redirect } from '@remix-run/node';
-import { Form, useActionData } from '@remix-run/react';
+import { Form, useActionData, useNavigation } from '@remix-run/react';
 import prismaDb from '~/server/db.server';
 import { expenseValidations } from '~/utils/validations';
 
@@ -24,7 +24,9 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 function ExpensesAdd() {
+  const navigation = useNavigation();
   const error = useActionData<typeof action>();
+  const isSubmitting = navigation.state !== 'idle';
   return (
     <div className="text-center pt-10">
       <h1 className="font-bold text-3xl mb-3">Add expense here</h1>
@@ -45,7 +47,11 @@ function ExpensesAdd() {
         <p className="text-sm text-left text-red-500">
           {error?.error.description}
         </p>
-        <button type="submit" className="btn btn-sm btn-secondary">
+        <button
+          disabled={isSubmitting}
+          type="submit"
+          className="btn btn-sm btn-secondary"
+        >
           Submit
         </button>
       </Form>
