@@ -1,6 +1,6 @@
 import { json, type ActionFunctionArgs, redirect } from '@remix-run/node';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
-import prismaDb from '~/server/db.server';
+import { prismaDb } from '~/server/db.server';
 import { expenseValidations } from '~/utils/validations';
 
 export async function action({ request }: ActionFunctionArgs) {

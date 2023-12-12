@@ -1,12 +1,19 @@
-import { Link, useFetcher, useLoaderData } from '@remix-run/react';
-import prismaDb from '~/server/db.server';
+import { json } from '@remix-run/node';
+import {
+  Link,
+  useFetcher,
+  useLoaderData,
+  useNavigation,
+} from '@remix-run/react';
+import { prismaDb } from '~/server/db.server';
 
 export async function loader() {
   const res = await prismaDb.task.findMany();
-  return res;
+  return json(res);
 }
 
 function Expenses() {
+  const navigation = useNavigation();
   const fetcher = useFetcher();
   // const handleDelete = (id: string) => {
   //   fetcher.submit(null, {
@@ -15,7 +22,7 @@ function Expenses() {
   //   });
   // };
 
-  const isSubmitting = fetcher.state !== 'idle';
+  const isSubmitting = navigation.state !== 'idle';
 
   const task = useLoaderData<typeof loader>();
   return (
@@ -32,7 +39,7 @@ function Expenses() {
         </Link>
       </div>
       <div className="space-y-2 pt-3">
-        {task.length > 0 ? (
+        {task && task.length > 0 ? (
           task.map((task) => {
             return (
               <div
