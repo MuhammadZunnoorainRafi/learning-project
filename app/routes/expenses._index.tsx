@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from '@remix-run/react';
+import { Form, Link, useLoaderData } from '@remix-run/react';
 import prismaDb from '~/server/db.server';
 
 export async function loader() {
@@ -40,9 +40,11 @@ function Expenses() {
                   <button className="btn btn-xs btn-success text-white">
                     Edit
                   </button>
-                  <button className="btn btn-xs btn-error text-white">
-                    Delete
-                  </button>
+                  <Form method='DELETE' action={`/expenses/${task.id}`}>
+                    <button className="btn btn-xs btn-error text-white">
+                      Delete
+                    </button>
+                  </Form>
                 </div>
               </div>
             );
