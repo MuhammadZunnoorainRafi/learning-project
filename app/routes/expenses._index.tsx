@@ -1,4 +1,4 @@
-import { Form, Link, useFetcher, useLoaderData } from '@remix-run/react';
+import { Link, useFetcher, useLoaderData } from '@remix-run/react';
 import prismaDb from '~/server/db.server';
 
 export async function loader() {
@@ -46,7 +46,7 @@ function Expenses() {
                     {new Date(task.createdAt).toLocaleString()}
                   </p>
                 </div>
-                <div className="flex-0 space-x-2 ">
+                <div className="flex-0 space-x-2 flex items-center justify-center ">
                   <button className="btn btn-xs btn-success text-white">
                     Edit
                   </button>
@@ -61,7 +61,10 @@ function Expenses() {
                   {/* </Form> */}
 
                   <fetcher.Form method="DELETE" action={`/expenses/${task.id}`}>
-                    <button className="disabled btn btn-xs btn-error text-white">
+                    <button
+                      disabled={isSubmitting}
+                      className="disabled btn btn-xs btn-error text-white"
+                    >
                       Delete
                     </button>
                   </fetcher.Form>

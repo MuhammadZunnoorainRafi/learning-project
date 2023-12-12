@@ -1,4 +1,4 @@
-import { redirect, type ActionFunctionArgs, json } from '@remix-run/node';
+import { type ActionFunctionArgs, json } from '@remix-run/node';
 import prismaDb from '~/server/db.server';
 
 export async function action({ request, params }: ActionFunctionArgs) {
